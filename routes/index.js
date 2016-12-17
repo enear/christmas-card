@@ -7,7 +7,11 @@ router.get( '/', function ( req, res, next ) {
 } );
 
 router.post( '/checkEmotion', function ( req, res, next ) {
-  
+
+	console.log( req );
+
+	res.status( 200 );
+	res.end();
 
 } );
 

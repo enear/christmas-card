@@ -7,12 +7,12 @@ class Camera {
 		this._canvas = null;
 		this._context = null;
 		this._photo = null;
+		this._image = null;
 		this._startbutton = null;
 
 		this._width = WIDTH;
 		this._height = HEIGHT;
 		this._isStreaming = false;
-
 	}
 
 	start() {
@@ -73,8 +73,13 @@ class Camera {
 		return this._isStreaming;
 	}
 
+	getImage(){
+		return this._image;
+	}
+
 	_clearPhoto() {
 		this._photo.setAttribute( 'src', '' );
+		this._image = null;
 	}
 
 	_takePicture() {
@@ -82,7 +87,13 @@ class Camera {
 			this._canvas.width = this._width;
 			this._canvas.height = this._height;
 			this._context.drawImage( this._video, 0, 0, this._width, this._height );
-			this._photo.setAttribute( 'src', this._canvas.toDataURL() );
+
+			let url = this._canvas.toDataURL();
+
+			this._image = new Image();
+			this._image.src = url;
+
+			this._photo.setAttribute( 'src', url );
 		} else {
 			this._clearPhoto();
 		}
